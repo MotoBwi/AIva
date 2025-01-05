@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "eventsource-parser": "^3.0.0",
     "openai": "^4.77.3"
   }
 }

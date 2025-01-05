@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Head from "next/head";
 import ReactMarkdown from 'react-markdown'
+import { createParser } from "eventsource-parser";
+import { Stream } from "openai/streaming";
 
 export default function Home() {
   const [apiKey, setApiKey] = useState("");
@@ -14,6 +16,7 @@ export default function Home() {
   ]);
 
   const API_URL = "https://api.openai.com/v1/chat/completions";
+  
   const sendRequest = async () => {
     const updatedMessages = [
       ...messages,
@@ -39,10 +42,9 @@ export default function Home() {
           stream: true,
         }),
       });
-
       const reader = response.body.getReader();
 
-      let newMessage = "";
+      let newMessages = "";
       const parser = createParser((event) => {
         if (event.type === "event") {
           const data = event.data;
@@ -55,12 +57,11 @@ export default function Home() {
           if (!content) {
             return;
           }
-
-          newMessage += content;
+          newMessages += content;
 
           const updatedMessages2 = [
             ...updatedMessages,
-            { role: "assistant", content: newMessage },
+            {role: "assistant", content: newMessages},
           ];
 
           setMessages(updatedMessages2);
