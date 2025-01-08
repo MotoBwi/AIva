@@ -3,7 +3,6 @@ import Head from "next/head";
 import ReactMarkdown from 'react-markdown'
 import { createParser } from "eventsource-parser";
 import { Stream } from "openai/streaming";
-import Navbar from "@/components/Navbar";
 
 export default function Home() {
   const [apiKey, setApiKey] = useState("");
@@ -43,10 +42,9 @@ export default function Home() {
           stream: true,
         }),
       });
-
       const reader = response.body.getReader();
 
-      let newMessage = "";
+      let newMessages = "";
       const parser = createParser((event) => {
         if (event.type === "event") {
           const data = event.data;
@@ -59,12 +57,11 @@ export default function Home() {
           if (!content) {
             return;
           }
-
-          newMessage += content;
+          newMessages += content;
 
           const updatedMessages2 = [
             ...updatedMessages,
-            { role: "assistant", content: newMessage },
+            {role: "assistant", content: newMessages},
           ];
 
           setMessages(updatedMessages2);
@@ -93,7 +90,20 @@ export default function Home() {
       </Head>
       <div className="flex flex-col h-screen">
         {/* Navbar */}
-        <Navbar/>
+        <nav className="bg-white shadow w-full">
+          <div className="px-4 h-14 flex justify-between items-center">
+            <div className="text-xl font-bold">AIva</div>
+            <div>
+              <input
+                type="password"
+                className="border rounded p-1"
+                placeholder="Enter API key.."
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+              />
+            </div>
+          </div>
+        </nav>
 
         {/* Message History */}
         <div className="flex-1 overflow-y-scroll">
