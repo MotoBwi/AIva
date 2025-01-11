@@ -68,7 +68,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>AIva - Your friendly neighborhood AI</title>
+        <title>Jobot - Your friendly neighborhood AI</title>
       </Head>
       <Toaster />
       <div className="flex flex-col h-screen">
@@ -77,7 +77,7 @@ export default function Login() {
         <div className="mx-auto max-w-md">
           <div className="border self-center rounded-lg my-8 p-4 m-4">
             <div className="text-center text-xl font-bold text-gray-800">
-              Log In - AIva
+              Log In - Jobot
             </div>
 
             <div className=" flex flex-col my-4">

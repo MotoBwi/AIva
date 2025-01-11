@@ -7,7 +7,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { streamOpenAIResponse } from "@/utils/openai";
 
 const SYSTEM_MESSAGE =
-  "You are Aiva, a helpful and verstaile AI created by Bapan Sardar using state-of the art ML models and APIs.";
+  "You are AIva, a helpful and verstaile AI created by Bapan Sardar using state-of the art ML models and APIs.";
 
 export default function Home() {
   const user = useUser();
